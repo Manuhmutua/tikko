@@ -6,29 +6,69 @@
       Please Authenticate To Continue
     </h1>
   </div>
-  <div class=" pt-6">
-    <input
-      type="phone"
-      name="userphone"
-      class="block border p-2 bg-white w-full h-10 focus:outline-none focus:border-blue-400 rounded text-sm placeholder-gray-600 placeholder-opacity-40 mt-2 text-gray-600"
-      placeholder="Phone Number*"
-    />
+  <div>
+    <div class=" pt-6" v-show="viewSwitch">
+      <input
+        type="phone"
+        name="userphone"
+        v-model="phNo"
+        class="block border p-2 bg-white w-full h-10 focus:outline-none focus:border-blue-400 rounded text-sm placeholder-gray-600 placeholder-opacity-40 mt-2 text-gray-600"
+        placeholder="Phone Number*"
+      />
 
-    <div class="flex justify-center">
-      <p
-        class="text-gray-600 font-semibold pt-2 w-2/3"
-        style="font-size: 9.5px;"
+      <div class="flex justify-center">
+        <p
+          class="text-gray-600 font-semibold pt-2 w-2/3"
+          style="font-size: 9.5px;"
+        >
+          By clicking Agree & Join, you agree to the Website User Agreement,
+          Privacy Policy, and Cookie Policy. We will send a verification code
+          rto verify your Phone Number.
+        </p>
+      </div>
+      <button
+        @click="sendOtp"
+        type="submit"
+        class="w-80 h-9 bg-blue-500 text-sm font-semibold mt-2 rounded-sm text-gray-100 focus:outline-none hover:bg-blue-600"
       >
-        By clicking Agree & Join, you agree to the Website User Agreement,
-        Privacy Policy, and Cookie Policy. We will send a verification code rto
-        verify your Phone Number.
-      </p>
+        Agree & Join
+      </button>
     </div>
-    <button
-      type="submit"
-      class="w-80 h-9 bg-blue-500 text-sm font-semibold mt-2 rounded-sm text-gray-100 focus:outline-none hover:bg-blue-600"
-    >
-      Agree & Join
-    </button>
+
+    <div v-show="!viewSwitch">
+      <div class="flex justify-center">
+        <p
+          class="text-gray-600 font-semibold pt-2 w-2/3"
+          style="font-size: 9.5px;"
+        >
+          Please use verification code send via SMS on the phone number you provided.
+        </p>
+      </div>
+      <input
+        type="number"
+        name="verificationCode"
+        v-model="otp"
+        class="block border p-2 bg-white w-full h-10 focus:outline-none focus:border-blue-400 rounded text-sm placeholder-gray-600 placeholder-opacity-40 mt-2 text-gray-600"
+        placeholder="Verification Code*"
+      />
+
+      <button
+        @click="verifyOtp"
+        type="verify"
+        class="w-80 h-9 bg-blue-500 text-sm font-semibold mt-2 rounded-sm text-gray-100 focus:outline-none hover:bg-blue-600"
+      >
+        Verify Code
+      </button>
+
+      <button
+        type="resend"
+        @click="sendOtp()"
+        class="w-80 h-9 bg-blue-500 text-sm font-semibold mt-2 rounded-sm text-gray-100 focus:outline-none hover:bg-blue-600"
+      >
+        Resend Verification Code
+      </button>
+    </div>
   </div>
+  <div id="recaptcha-container"></div>
+  <br />
 </div>
