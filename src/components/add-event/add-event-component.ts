@@ -1,22 +1,37 @@
-import Navigation from '../nav/index.vue'
+import Navigation from "../nav/index.vue";
+import { saveEventBanner } from "../api";
+import { ref } from "vue";
 
-export default {  
+const documents = ref<FileList>([]);
+
+export default {
   data() {
     return {
-      fileList: []
+      fileList: [],
     };
   },
   components: {
     Navigation,
   },
   setup() {
-    return {
+    function setProjectFiles(val: Event) {
       
+      const element = val.target as HTMLInputElement;
+
+      documents.value = element.files || undefined;
+
+      if (documents.value !== undefined)
+        saveEventBanner(`test`, documents.value);
     }
+
+    return {
+      documents,
+      setProjectFiles
+    };
   },
   methods: {
     navigateToCreateEvent() {
       this.$router.push({ path: "/add-event" });
-    }
-  }
+    },
+  },
 };
