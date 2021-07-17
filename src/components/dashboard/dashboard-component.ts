@@ -28,5 +28,8 @@ export default {
     }
   },
   methods: {
+    navigateToCreateEvent() {
+      this.$router.push({ path: "/add-event" });
+    }
   }
 };

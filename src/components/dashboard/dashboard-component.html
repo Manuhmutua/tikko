@@ -8,7 +8,7 @@
     >
       Events <br />
       <span style="font-size: 10px;" class="flex justify-left"
-        >Please Manage your events here.
+        >Manage your events here.
       </span>
     </p>
 
@@ -16,6 +16,7 @@
       type="submit"
       style="width: 140px; position: absolute; right: 10px; top: 90px;"
       class="right-0 w-1/3 m-10 h-9 bg-blue-500 text-sm font-semibold mt-2 rounded-sm text-gray-100 focus:outline-none hover:bg-blue-600"
+      @click="navigateToCreateEvent()"
     >
       Create Event
     </button>
@@ -85,4 +86,5 @@
     </div>
   </div>
 
+  <!-- Modal -->
 </div>

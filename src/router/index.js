@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '../components/login/index.vue'
 import Dashboard from '../components/dashboard/index.vue'
+import AddEvent from '../components/add-event/index.vue'
 
 const routes = [
   {
@@ -12,6 +13,11 @@ const routes = [
     path: '/dashboard',
     name: 'Dashboard',
     component: Dashboard
+  },
+  {
+    path: '/add-event',
+    name: 'AddEvent',
+    component: AddEvent
   }
 ]
 
