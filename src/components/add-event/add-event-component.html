@@ -39,8 +39,8 @@
           <div>
             <input
               type="date"
-              name="date"
-              v-model="date"
+              name="eventdate"
+              v-model="eventdate"
               class="block border p-2 bg-white w-full h-10 focus:outline-none focus:border-blue-400 rounded text-sm placeholder-gray-600 placeholder-opacity-40 mt-2 text-gray-600"
               placeholder="Date*"
             />
@@ -48,8 +48,8 @@
           <div>
             <input
               type="time"
-              name="time"
-              v-model="time"
+              name="eventtime"
+              v-model="eventtime"
               class="block border p-2 bg-white w-full h-10 focus:outline-none focus:border-blue-400 rounded text-sm placeholder-gray-600 placeholder-opacity-40 mt-2 text-gray-600"
               placeholder="Time*"
             />
@@ -57,8 +57,8 @@
         </div>
         <textarea
           type="text"
-          name="description"
-          v-model="description"
+          name="eventdescription"
+          v-model="eventdescription"
           rows="10"
           class="block border p-2 bg-white w-full focus:outline-none focus:border-blue-400 rounded text-sm placeholder-gray-600 placeholder-opacity-40 mt-2 text-gray-600"
           placeholder="Event Description*"
