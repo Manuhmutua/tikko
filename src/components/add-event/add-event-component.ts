@@ -1,8 +1,24 @@
 import Navigation from "../nav/index.vue";
-// import { saveEventBanner } from "../api";
-// import { ref } from "vue";
+import firebase from "firebase";
 
-// const documents = ref<FileList>([]);
+function setProjectFiles(val) {
+  const fileList = val.target.files;
+  console.log(fileList);
+
+  let storageRef = firebase.storage().ref("img/" + fileList[0].name);
+  var task = storageRef.put(fileList[0]);
+  task.on(
+    "state_changed",
+    function progress(snapshot) {
+      var percentage = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      console.log(percentage);
+    },
+    function error(err) {
+      console.log(err);
+    },
+    function complete() {}
+  );
+}
 
 export default {
   data() {
@@ -14,19 +30,8 @@ export default {
     Navigation,
   },
   setup() {
-    // function setProjectFiles(val: Event) {
-      
-    //   const element = val.target as HTMLInputElement;
-
-    //   documents.value = element.files || undefined;
-
-    //   if (documents.value !== undefined)
-    //     saveEventBanner(`test`, documents.value);
-    // }
-
     return {
-      // documents,
-      // setProjectFiles
+      setProjectFiles,
     };
   },
   methods: {
