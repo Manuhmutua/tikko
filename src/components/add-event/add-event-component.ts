@@ -1,6 +1,7 @@
 import Navigation from "../nav/index.vue";
 import firebase from "firebase";
 import { ref } from "@vue/reactivity";
+import { db, auth } from "../fb";
 
 const eventname = ref("");
 const eventlocation = ref("");
@@ -19,18 +20,24 @@ export default {
     Navigation,
   },
   setup() {
-
-    let auth = firebase.auth();
-
     function setProjectFiles(val) {
       const fileList = val.target.files;
       console.log(fileList);
 
-      imageName.value = `img/${auth.currentUser.uid}/${fileList[0].name}`;
+      imageName.value = `img/${auth.currentUser.uid}/${eventname.value.replace(
+        /\s/g,
+        ""
+      )}/${fileList[0].name}`;
 
-      console.log(auth.currentUser.uid)
+      console.log(auth.currentUser.uid);
 
-      let storageRef = firebase.storage().ref(`img/${auth.currentUser.uid}/${fileList[0].name}`);
+      let storageRef = firebase
+        .storage()
+        .ref(
+          `img/${auth.currentUser.uid}/${eventname.value.replace(/\s/g, "")}/${
+            fileList[0].name
+          }`
+        );
       let task = storageRef.put(fileList[0]);
       task.on(
         "state_changed",
@@ -65,8 +72,6 @@ export default {
     },
     async onClickSaveEvent() {
       console.log(eventname.value);
-
-      let db = firebase.firestore();
 
       db.collection("events")
         .add({
