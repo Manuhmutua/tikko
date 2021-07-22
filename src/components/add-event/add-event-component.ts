@@ -3,13 +3,13 @@ import firebase from "firebase";
 import { ref } from "@vue/reactivity";
 import { db, auth } from "../fb";
 
-
 const eventname = ref("");
 const eventlocation = ref("");
 const eventdate = ref("");
 const eventtime = ref("");
 const eventdescription = ref("");
 const imageName = ref("");
+const percentage = ref("");
 
 export default {
   data() {
@@ -43,9 +43,10 @@ export default {
       task.on(
         "state_changed",
         function progress(snapshot) {
-          let percentage =
+          let p =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(percentage);
+            percentage.value = Math.round(p)
+          console.log(percentage.value);
           console.log(snapshot);
         },
         function error(err) {
@@ -65,6 +66,7 @@ export default {
       eventtime,
       eventdescription,
       imageName,
+      percentage
     };
   },
   methods: {
@@ -85,6 +87,12 @@ export default {
         })
         .then((docRef) => {
           console.log("Document written with ID: ", docRef.id);
+          eventname.value = "";
+          eventlocation.value = "";
+          eventdate.value = "";
+          eventtime.value = "";
+          eventdescription.value = "";
+          imageName.value = "";
         })
         .catch((error) => {
           console.error("Error adding document: ", error);
