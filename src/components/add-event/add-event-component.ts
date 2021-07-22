@@ -3,6 +3,7 @@ import firebase from "firebase";
 import { ref } from "@vue/reactivity";
 import { db, auth } from "../fb";
 
+
 const eventname = ref("");
 const eventlocation = ref("");
 const eventdate = ref("");

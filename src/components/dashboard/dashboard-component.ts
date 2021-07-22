@@ -1,5 +1,6 @@
 import Navigation from "../nav/index.vue";
 import { db } from "../fb";
+import firebase from "firebase";
 import { ref } from "@vue/reactivity";
 
 // const events = [
@@ -17,6 +18,7 @@ import { ref } from "@vue/reactivity";
 // ];
 
 const events = ref([]);
+const images = ref([]);
 
 export default {
   data() {
@@ -31,13 +33,26 @@ export default {
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           console.log(`${doc.id} => ${doc.data().event_name}`);
-          events.value.push(doc.data())
+          events.value.push(doc.data());
+
+          const storage = firebase.storage()
+
+          storage
+            .ref(doc.data().event_image_path)
+            .getDownloadURL()
+            .then((url) => {
+              // Do something with the URL ...
+              console.log(url)
+              images.value.push(url)
+            });
         });
-        console.log(events.value)
+        console.log(events.value);
       });
 
+    
     return {
       events,
+      images
     };
   },
   methods: {
