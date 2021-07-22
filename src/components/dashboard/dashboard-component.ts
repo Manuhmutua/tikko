@@ -28,6 +28,10 @@ export default {
     Navigation,
   },
   setup() {
+
+    events.value = []
+    images.value = []
+
     db.collection("events")
       .get()
       .then((querySnapshot) => {
