@@ -11,6 +11,7 @@ const eventtime = ref("");
 const eventdescription = ref("");
 const imageName = ref("");
 const percentage = ref("");
+const eventId = ref("");
 
 export default {
   data() {
@@ -22,10 +23,32 @@ export default {
     Navigation,
   },
   setup() {
-
     const route = useRoute();
 
-    console.log(route.params.event)
+    console.log(route.params.event);
+    eventId.value = route.params.event.toString();
+
+    var docRef = db.collection("events").doc(eventId.value);
+
+    docRef
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          console.log("Document data:", doc.data());
+          eventname.value = doc.data().event_name;
+          eventlocation.value = doc.data().event_location;
+          eventdate.value = doc.data().event_date;
+          eventtime.value = doc.data().event_time;
+          eventdescription.value = doc.data().event_description;
+          imageName.value = doc.data().event_image_path;
+        } else {
+          // doc.data() will be undefined in this case
+          console.log("No such document!");
+        }
+      })
+      .catch((error) => {
+        console.log("Error getting document:", error);
+      });
 
     function setProjectFiles(val) {
       const fileList = val.target.files;
@@ -78,30 +101,21 @@ export default {
     navigateToCreateEvent() {
       this.$router.push({ path: "/add-event" });
     },
-    async onClickSaveEvent() {
+    async onClickUpdateEvent() {
       console.log(eventname.value);
 
       db.collection("events")
-        .add({
+        .doc(eventId.value)
+        .update({
           event_name: eventname.value,
           event_location: eventlocation.value,
           event_date: eventdate.value,
           event_time: eventtime.value,
           event_description: eventdescription.value,
           event_image_path: imageName.value,
-        })
-        .then((docRef) => {
-          console.log("Document written with ID: ", docRef.id);
-          eventname.value = "";
-          eventlocation.value = "";
-          eventdate.value = "";
-          eventtime.value = "";
-          eventdescription.value = "";
-          imageName.value = "";
-        })
-        .catch((error) => {
-          console.error("Error adding document: ", error);
         });
+
+        this.$router.push({ path: "/dashboard" });
     },
   },
 };
