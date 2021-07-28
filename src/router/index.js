@@ -22,7 +22,7 @@ const routes = [
     component: AddEvent,
   },
   {
-    path: "/view-event",
+    path: "/view-event/:event",
     name: "ViewEvent",
     component: ViewEvent,
   },

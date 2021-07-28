@@ -3,23 +3,19 @@
 
   <div class="w-full md:w-3/5 lg:w-3/5"></div>
   <div class="w-full md:w-3/5 lg:w-3/5 rounded overflow-hidden">
-    <img
-      class="w-full"
-      src="https://img.freepik.com/free-vector/music-event-poster-template-with-abstract-shapes_1361-1316.jpg?size=626&ext=jpg"
-      alt="Poster"
-    />
+    <img class="w-full" :src="event.event_image_path" alt="Poster" />
     <div class="px-6 py-4">
-      <div class="text-gray-400 text-sm mb-2">On 13-04-2021 at 14:30</div>
-      <div class="font-bold text-xl mb-2">River Event at the river mall</div>
+      <div class="text-gray-400 text-sm mb-2">
+        On {{event.event_date}} at {{event.event_time}}
+      </div>
+      <div class="font-bold text-xl mb-2">{{event.event_name}}</div>
       <p class="text-gray-700 text-base">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus
-        quia, nulla! Maiores et perferendis eaque, exercitationem praesentium
-        nihil.
+        {{event.event_description}}
       </p>
     </div>
 
     <button
-    style="margin: 30px;"
+      style="margin: 30px;"
       class="right-0 px-6 h-9 bg-blue-500 text-sm font-semibold mt-2 rounded-sm text-gray-100 focus:outline-none hover:bg-blue-600"
       @click="onClickSaveEvent()"
     >
