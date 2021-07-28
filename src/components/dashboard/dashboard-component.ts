@@ -51,5 +51,8 @@ export default {
     navigateToEditEvent(event_id) {
       this.$router.push({ name: "EditEvent", params: { event: event_id } });
     },
+    navigateToViewEvent(event_id) {
+      this.$router.push({ name: "ViewEvent", params: { event: event_id } });
+    },
   },
 };
