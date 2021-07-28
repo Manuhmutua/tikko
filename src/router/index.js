@@ -27,7 +27,7 @@ const routes = [
     component: ViewEvent,
   },
   {
-    path: "/edit-event",
+    path: "/edit-event/:event",
     name: "EditEvent",
     component: EditEvent,
   },

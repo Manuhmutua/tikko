@@ -2,6 +2,7 @@ import Navigation from "../nav/index.vue";
 import firebase from "firebase";
 import { ref } from "@vue/reactivity";
 import { db, auth } from "../fb";
+import { useRoute } from "vue-router";
 
 const eventname = ref("");
 const eventlocation = ref("");
@@ -21,6 +22,11 @@ export default {
     Navigation,
   },
   setup() {
+
+    const route = useRoute();
+
+    console.log(route.params.event)
+
     function setProjectFiles(val) {
       const fileList = val.target.files;
       console.log(fileList);
@@ -43,9 +49,8 @@ export default {
       task.on(
         "state_changed",
         function progress(snapshot) {
-          let p =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            percentage.value = Math.round(p)
+          let p = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          percentage.value = Math.round(p);
           console.log(percentage.value);
           console.log(snapshot);
         },
@@ -66,7 +71,7 @@ export default {
       eventtime,
       eventdescription,
       imageName,
-      percentage
+      percentage,
     };
   },
   methods: {

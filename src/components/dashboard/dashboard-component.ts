@@ -26,20 +26,20 @@ export default {
     Navigation,
   },
   setup() {
-
-    events.value = []
+    events.value = [];
 
     db.collection("events")
       .get()
       .then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
           console.log(`${doc.id} => ${doc.data().event_name}`);
-          events.value.push(doc.data());
+
+          let object = doc.data();
+          object.uid = doc.id;
+          events.value.push(object);
         });
-        console.log(events.value);
       });
 
-    
     return {
       events,
     };
@@ -47,6 +47,9 @@ export default {
   methods: {
     navigateToCreateEvent() {
       this.$router.push({ path: "/add-event" });
+    },
+    navigateToEditEvent(event_id) {
+      this.$router.push({ name: "EditEvent", params: { event: event_id } });
     },
   },
 };
