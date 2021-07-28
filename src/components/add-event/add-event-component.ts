@@ -108,6 +108,7 @@ export default {
           eventtime.value = "";
           eventdescription.value = "";
           imageName.value = "";
+          this.$router.push({ path: "/dashboard" });
         })
         .catch((error) => {
           console.error("Error adding document: ", error);
